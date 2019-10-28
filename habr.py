@@ -41,7 +41,7 @@ def get_total_pages(soup):
 
 #save data to csv
 def write_csv(dict):
-    with open('habr.csv', 'a', newline='') as file:
+    with open('habr.csv', 'w', newline='') as file:
         writer = csv.DictWriter(file, fieldnames=dict[0])
         writer.writerows(dict)
 
