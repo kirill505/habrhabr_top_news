@@ -48,15 +48,14 @@ def write_csv(dict):
 #main function of this module
 def HabrParse_csv(base_url, post_count):
     page_num = post_count // 20 + 2 if post_count > 20 else  2 #counting page for parse
-    
+    data = []
     for i in range(1, page_num):
         url = base_url + "page" + str(i)
         html = get_page(url)
         soup = BeautifulSoup(html, 'lxml')
         
         #if that not last page then parse all article, else parse last "20-post_count" articles
-        data = parse_data(soup, 20) if post_count >= 20 else parse_data(soup, post_count) 
-
-        #save result to .csv
-        write_csv(data)
+        data += (parse_data(soup, 20) if post_count >= 20 else parse_data(soup, post_count))
         post_count -= 20
+    #save result to .csv
+    write_csv(data)
